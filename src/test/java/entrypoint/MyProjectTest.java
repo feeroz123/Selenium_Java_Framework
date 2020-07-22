@@ -33,7 +33,7 @@ import utilities.Utilities;
  * @implNote This is the main entry point for the automation
  *
  */
-public class ControlRoomTest extends Base {
+public class MyProjectTest extends Base {
 	
 	public ExtentHtmlReporter htmlReporter;
 	public ExtentReports report;
@@ -44,7 +44,7 @@ public class ControlRoomTest extends Base {
 	
 	Utilities utils = new Utilities();
 	
-	private static final Logger log = LogManager.getLogger(ControlRoomTest.class.getName());
+	private static final Logger log = LogManager.getLogger(MyProjectTest.class.getName());
 	
 	
 	@BeforeClass
@@ -54,12 +54,12 @@ public class ControlRoomTest extends Base {
 		htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir")+ Utilities.getAppProperty("REPORT_DIR") + "AutomationReport.html");
 		htmlReporter.config().setEncoding("utf-8");
 		htmlReporter.config().setDocumentTitle("Automation Report");
-		htmlReporter.config().setReportName("Message Viewer Automation Report");
+		htmlReporter.config().setReportName("MyProjectTest Automation Report");
 		htmlReporter.config().setTheme(Theme.DARK);
 		
 		report = new ExtentReports();
-		report.setSystemInfo("Project Name", "UIP Message Viewer");
-		report.setSystemInfo("Organisation", "Aspect Software");
+		report.setSystemInfo("Project Name", "My project");
+		report.setSystemInfo("Organisation", "My Company");
 		report.setSystemInfo("Browser", browser.toUpperCase());
 		report.attachReporter(htmlReporter);
 		
