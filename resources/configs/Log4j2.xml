@@ -4,7 +4,7 @@
         <Property name="basePath">./test-output/Logs</Property>
     </Properties>
     <Appenders>
-        <RollingFile name="File" fileName="${basePath}/ControlRoomAutomation.log" filePattern="${basePath}/ControlRoomAutomation-%d{yyyyMMddHH}.log">
+        <RollingFile name="File" fileName="${basePath}/MyProjectAutomation.log" filePattern="${basePath}/MyProjectAutomation-%d{yyyyMMddHH}.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %c{2} : %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
