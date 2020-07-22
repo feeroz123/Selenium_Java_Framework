@@ -100,7 +100,7 @@ public class Base {
 		switch (browser.toLowerCase()) {
 
 			case "firefox":
-				System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/test/resources/webdrivers/geckodriver.exe");
+				System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/resources/webdrivers/geckodriver.exe");
 				
 				FirefoxOptions firefoxOptions = new FirefoxOptions();
 				firefoxOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
@@ -112,7 +112,7 @@ public class Base {
 			case "chrome":
 				System.setProperty("webdriver.chrome.silentOutput", "true");
 				System.setProperty("webdriver.chrome.driver",
-						System.getProperty("user.dir") + "/src/test/resources/webdrivers/chromedriver.exe");
+						System.getProperty("user.dir") + "/resources/webdrivers/chromedriver.exe");
 				
 				ChromeOptions chromeOptions = new ChromeOptions();
 				chromeOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
@@ -153,7 +153,7 @@ public class Base {
 				 */
 	
 				System.setProperty("webdriver.ie.driver",
-						System.getProperty("user.dir") + "/src/test/resources/webdrivers/IEDriverServer.exe");
+						System.getProperty("user.dir") + "/resources/webdrivers/IEDriverServer.exe");
 				
 				InternetExplorerOptions options = new InternetExplorerOptions();
 				options.setCapability("nativeEvents", false);
@@ -175,7 +175,7 @@ public class Base {
 				// Default browser : Chrome
 				System.setProperty("webdriver.chrome.silentOutput", "true");
 				System.setProperty("webdriver.chrome.driver",
-						System.getProperty("user.dir") + "/src/test/resources/webdrivers/chromedriver.exe");
+						System.getProperty("user.dir") + "/resources/webdrivers/chromedriver.exe");
 	
 				ChromeOptions chromeOptions1 = new ChromeOptions();
 				chromeOptions1.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
