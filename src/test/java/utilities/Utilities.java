@@ -109,6 +109,86 @@ public class Utilities extends Base {
 		return String.valueOf(result);
 	}
 	
+		/**
+	 * Gets current Time stamp in yyyy-mm-dd HH:mm:ss.sss format
+	 * @return Timestamp
+	 */
+	public static Timestamp getCurrentTimestamp() {
+		log.debug("Getting current Timestamp");
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		return timestamp;
+	}
+	
+	/**
+	 * Gets the API connection to Test Rail by passing valid credentials from application.properties file
+	 * @return API client
+	 */
+	public static APIClient getTestRailConnClient() {
+		APIClient client = null;
+		try {
+			log.debug("Connecting to Test Rail");
+			client = new APIClient(getAppProperty("TR_URL"));
+			client.setUser(getAppProperty("TR_USERNAME"));
+			client.setPassword(getAppProperty("TR_PASSWORD"));
+			log.debug("Connection to Test Rail was successful");
+		} catch (Exception e) {
+			log.error("*** Connection to Test Rail failed");
+			e.printStackTrace();
+		}
+		return client;
+	}
+	
+	/**
+	 * Creates a new Test Run in given Project and Test Suite, and returns Test Run id
+	 * @param apiClient
+	 * @param TestSuiteId
+	 * @return runId
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static Long getNewTestRun(APIClient apiClient, String TestSuiteId) {
+		JSONObject runResponse = null;
+		String projectId = getAppProperty("TR_PROJECT_ID");
+		String runName = "TestRun_Automation-" + getCurrentTimestamp();
+		try {
+			log.debug("Creating a new Test Run");
+			Map data = new HashMap();
+			data.put("suite_id", TestSuiteId);
+			data.put("name", runName);
+			data.put("include_all", true);
+			runResponse = (JSONObject) apiClient.sendPost("add_run/" + projectId + "", data);
+		} catch (Exception e) {
+			log.error("*** Failed to update test result in Test Rail");
+			e.printStackTrace();
+		}
+		
+		// Get the Test Run Id from the Response
+		Long runId = (Long) runResponse.get("id");
+		log.debug("New Test Run Id = " + runId);
+		
+		return runId;
+	}
+	
+	/**
+	 * Updates the test results in Test Rail for corresponding Run Id and Test Case Id
+	 * @param apiClient
+	 * @param TestRunId
+	 * @param TestCaseId
+	 * @param testStatusId
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static void updateTestRailTestResults(APIClient apiClient, Long TestRunId, String TestCaseId, int testStatusId) {
+		try {
+			log.debug("Updating Test Rail for: " + "TestRunID=" + TestRunId + ", TestCaseID=" + TestCaseId + ", TestStatus_ID=" + testStatusId);
+			Map data = new HashMap();
+			data.put("status_id", testStatusId);
+			data.put("comment", "Test Executed - Status updated automatically from Test Automation");
+			apiClient.sendPost("add_result_for_case/" + TestRunId + "/" + TestCaseId + "", data);
+		} catch (Exception e) {
+			log.error("*** Failed to update test result in Test Rail");
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 }
