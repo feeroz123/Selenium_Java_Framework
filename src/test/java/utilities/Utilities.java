@@ -130,7 +130,8 @@ public class Utilities extends Base {
 			log.debug("Connecting to Test Rail");
 			client = new APIClient(getAppProperty("TR_URL"));
 			client.setUser(getAppProperty("TR_USERNAME"));
-			client.setPassword(getAppProperty("TR_PASSWORD"));
+			// Use either Password or API Key (generated from Test Rail - Settings). API Key is a secure way to connect.
+			client.setPassword(getAppProperty("TR_API_KEY"));
 			log.debug("Connection to Test Rail was successful");
 		} catch (Exception e) {
 			log.error("*** Connection to Test Rail failed");
