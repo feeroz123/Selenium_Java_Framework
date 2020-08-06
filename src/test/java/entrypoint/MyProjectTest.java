@@ -39,6 +39,12 @@ public class MyProjectTest extends Base {
 	public ExtentReports report;
 	public ExtentTest test;
 	
+	// Test Rail integration variables
+	public APIClient testRail_client;
+	public String TEST_SUITE_ID;
+	public Long TEST_RUN_ID;
+	public String TC_ID; // Test Case Id is specific to Test Suite in which it is present
+	
 	CommonPageObj cpObj = new CommonPageObj();
 	CommonPageMethods cpM = new CommonPageMethods();
 	
@@ -50,6 +56,10 @@ public class MyProjectTest extends Base {
 	@BeforeClass
 	@Parameters("browser")
 	public void setup(String browser) throws InterruptedException {
+		// Test Rail integration variables
+		testRail_client = Utilities.getTestRailConnClient();
+		TEST_SUITE_ID = Utilities.getAppProperty("TR_TEST_SUITE_ID");
+		TEST_RUN_ID = Utilities.getNewTestRun(testRail_client, TEST_SUITE_ID);
 		
 		htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir")+ Utilities.getAppProperty("REPORT_DIR") + "AutomationReport.html");
 		htmlReporter.config().setEncoding("utf-8");
@@ -68,12 +78,22 @@ public class MyProjectTest extends Base {
 		launchApplication(browser);
 	}
 
-	
+	/**
+	 * Resets the Test Case Id before every Test method, to avoid multiple test results in same test case
+	 */
+	@BeforeMethod
+	public void resetTCID() {
+		log.info("Resetting Test Case Id to Null");
+		TC_ID = "";
+	}
 
 	//--------------------------------- General Tests ---------------------------------
 	
 	@Test (groups = {"general"})
 	public void testApplicationLoad() {
+		// Test Rail integration - Original Test Case Id of this test in Test Rail inside the Test Suite
+		TC_ID="207";
+		
 		test = report.createTest("Testing Application Load");
 		log.info("====== Testing Application Load ======");
 		
@@ -95,6 +115,7 @@ public class MyProjectTest extends Base {
 		
 		if (result.getStatus() == ITestResult.FAILURE) {
 			log.error(methodName + ": failed");
+			Utilities.updateTestRailTestResults(testRail_client, TEST_RUN_ID, TC_ID, statuses.TC_FAILED_STATUS);
 			
 			String exceptionMessage = Arrays.toString(result.getThrowable().getStackTrace());
 			test.fail("<details><summary><b><font color=red>Exception occurred, click to see details:" 
@@ -108,6 +129,7 @@ public class MyProjectTest extends Base {
 		}
 		else if (result.getStatus() == ITestResult.SUCCESS) {
 			log.info(methodName + ": passed");
+			Utilities.updateTestRailTestResults(testRail_client, TEST_RUN_ID, TC_ID, statuses.TC_PASSED_STATUS);
 			
 			String logText = "<b>Test Method " + methodName + " Successful</b>";
 			Markup m = MarkupHelper.createLabel(logText, ExtentColor.GREEN);
@@ -115,6 +137,7 @@ public class MyProjectTest extends Base {
 		}
 		else if (result.getStatus() == ITestResult.SKIP) {
 			log.info(methodName + ": skipped");
+			Utilities.updateTestRailTestResults(testRail_client, TEST_RUN_ID, TC_ID, statuses.TC_BLOCKED_STATUS);
 			
 			String logText = "<b>Test Method " + methodName + " Skipped</b>";
 			Markup m = MarkupHelper.createLabel(logText, ExtentColor.GREY);
