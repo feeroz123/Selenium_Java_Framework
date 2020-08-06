@@ -73,9 +73,6 @@ public class Utilities extends Base {
 	
 	/***
 	 * Method to generate a random AlphaNumeric String
-	 * 
-	 * @author kickdrum
-	 *
 	 */
 	public String getAlphaNumericString(int string_size) {
 			String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
