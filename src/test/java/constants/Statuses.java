@@ -2,7 +2,7 @@ package constants;
 
 /**
  * Contains the list of possible Test Statuses for a Test Case from Test Rail
- * @author kickdrum
+ * @author Feeroz Alam
  *
  */
 public class Statuses {
