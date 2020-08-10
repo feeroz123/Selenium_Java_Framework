@@ -179,15 +179,20 @@ public class Utilities extends Base {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void updateTestRailTestResults(APIClient apiClient, Long TestRunId, String TestCaseId, int testStatusId) {
-		try {
-			log.debug("Updating Test Rail for: " + "TestRunID=" + TestRunId + ", TestCaseID=" + TestCaseId + ", TestStatus_ID=" + testStatusId);
-			Map data = new HashMap();
-			data.put("status_id", testStatusId);
-			data.put("comment", "Test Executed - Status updated automatically from Test Automation");
-			apiClient.sendPost("add_result_for_case/" + TestRunId + "/" + TestCaseId + "", data);
-		} catch (Exception e) {
-			log.error("*** Failed to update test result in Test Rail");
-			e.printStackTrace();
+		if (TestCaseId == "") {
+			log.debug("No mapping found for Test Case");
+		} else {
+			try {
+				log.debug("Updating Test Rail for: " + "TestRunID=" + TestRunId + ", TestCaseID=" + TestCaseId
+						+ ", TestStatus_ID=" + testStatusId);
+				Map data = new HashMap();
+				data.put("status_id", testStatusId);
+				data.put("comment", "Test Executed - Status updated automatically from Test Automation");
+				apiClient.sendPost("add_result_for_case/" + TestRunId + "/" + TestCaseId + "", data);
+			} catch (Exception e) {
+				log.error("*** Failed to update test result in Test Rail");
+				e.printStackTrace();
+			}
 		}
 	}
 	
