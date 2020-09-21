@@ -18,7 +18,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import base.Base;
@@ -37,7 +37,7 @@ import utilities.Utilities;
  */
 public class MyProjectTest extends Base {
 	
-	public ExtentHtmlReporter htmlReporter;
+	public ExtentSparkReporter sparkReporter;
 	public ExtentReports report;
 	public ExtentTest test;
 	
@@ -63,17 +63,17 @@ public class MyProjectTest extends Base {
 		TEST_SUITE_ID = Utilities.getAppProperty("TR_TEST_SUITE_ID");
 		TEST_RUN_ID = Utilities.getNewTestRun(testRail_client, TEST_SUITE_ID);
 		
-		htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir")+ Utilities.getAppProperty("REPORT_DIR") + "AutomationReport.html");
-		htmlReporter.config().setEncoding("utf-8");
-		htmlReporter.config().setDocumentTitle("Automation Report");
-		htmlReporter.config().setReportName("MyProjectTest Automation Report");
-		htmlReporter.config().setTheme(Theme.DARK);
+		sparkReporter = new ExtentSparkReporter(System.getProperty("user.dir")+ Utilities.getAppProperty("REPORT_DIR") + "AutomationReport.html");
+		sparkReporter.config().setEncoding("utf-8");
+		sparkReporter.config().setDocumentTitle("Automation Report");
+		sparkReporter.config().setReportName("MyProjectTest Automation Report");
+		sparkReporter.config().setTheme(Theme.DARK);
 		
 		report = new ExtentReports();
 		report.setSystemInfo("Project Name", "My project");
 		report.setSystemInfo("Organisation", "My Company");
 		report.setSystemInfo("Browser", browser.toUpperCase());
-		report.attachReporter(htmlReporter);
+		report.attachReporter(sparkReporter);
 		
 		log.info("\n**************************************************************** TEST AUTOMATION STARTED ****************************************************************");
 	
