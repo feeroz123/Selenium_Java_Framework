@@ -34,7 +34,7 @@ public class Utilities extends Base {
 	 */
 	public static String takeScreenshot(String methodName ) throws Exception {
 		String fileName = getScreenshotName(methodName);
-		String directory = System.getProperty("user.dir") + getAppProperty("SCREENSHOT_DIR");
+		String directory = "./Reports/Screenshots/";
 		new File(directory).mkdirs();
 		String screenshotFile = directory + fileName;
 		
