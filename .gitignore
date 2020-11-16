@@ -29,5 +29,6 @@ hs_err_pid*
 ~/*
 target/*
 test-output/*
+Reports/*
 *.html
-testng_TEST.xml
+
