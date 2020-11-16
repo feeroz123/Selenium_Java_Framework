@@ -534,14 +534,15 @@ public class Base {
 	 * @throws Exception
 	 */
 	public void attachScreenshotInReport(ExtentTest test, String methodName) throws Exception {
-		String screenshotPath = getScreenshot(methodName);
-		try {
-			log.debug("Received screenshot file name: " + screenshotPath);
-			test.log(Status.INFO, "<b><font color=blue>" + "Screenshot:" + "</font></b>",
-					MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
-		} catch (IOException e) {
-			test.fail("Test failed, cannot attach screenshot");
-		}
+		log.debug("Capturing screenshot");
+		String screenshotPath = Utilities.takeScreenshot(methodName);
+		
+		// Important -- Prefixed '.' to make the screenshot file as a relative path
+              	test.log(Status.INFO, "<b><font color=blue>" + "Screenshot:" + "</font></b>",
+                               MediaEntityBuilder.createScreenCaptureFromPath("." + screenshotPath).build());
+               	
+		log.debug("Screenshot attached to the Extent Report");
+
 	}
 
 	
