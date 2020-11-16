@@ -63,7 +63,7 @@ public class MyProjectTest extends Base {
 		TEST_SUITE_ID = Utilities.getAppProperty("TR_TEST_SUITE_ID");
 		TEST_RUN_ID = Utilities.getNewTestRun(testRail_client, TEST_SUITE_ID);
 		
-		sparkReporter = new ExtentSparkReporter(System.getProperty("user.dir")+ Utilities.getAppProperty("REPORT_DIR") + "AutomationReport.html");
+		sparkReporter = new ExtentSparkReporter(System.getProperty("user.dir")+ "./Reports/AutomationReport.html");
 		sparkReporter.config().setEncoding("utf-8");
 		sparkReporter.config().setDocumentTitle("Automation Report");
 		sparkReporter.config().setReportName("MyProjectTest Automation Report");
@@ -149,7 +149,7 @@ public class MyProjectTest extends Base {
 	}
 	
 	
-	@AfterClass
+	@AfterClass (alwaysRun=true)
 	public void tearDown() {
 		closeApplication();
 		log.info("\n**************************************************************** TEST AUTOMATION COMPLETED ****************************************************************\n\n\n");
