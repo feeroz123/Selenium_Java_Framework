@@ -466,7 +466,7 @@ public class Base {
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("*** Fail - Error while checking non existence of element: " + Str_description);
-			return false;
+			return true;
 		}
 	}
 
