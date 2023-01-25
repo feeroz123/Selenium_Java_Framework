@@ -16,12 +16,12 @@
 		<java.version>1.8</java.version>
 		<selenium.version>3.141.59</selenium.version>
 		<apache.poi.version>5.2.2</apache.poi.version>
-		<testng.version>7.1.0</testng.version>
+		<testng.version>7.7.0</testng.version>
 		<extentreports-version>5.0.9</extentreports-version>
 		<ngwebdriver.version>1.1.6</ngwebdriver.version>
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-		<log4j-version>2.17.1</log4j-version>
+		<log4j-version>2.17.2</log4j-version>
 	</properties>
 
 	<dependencies>
@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.11.0</version>
+			<version>20030203.000550</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
 		<dependency>
